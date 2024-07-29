@@ -1,0 +1,316 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-29 06:12+0000\n"
+"PO-Revision-Date: 2024-07-29 08:12+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: languagecards/admin.py:13 languagecards/models.py:23
+msgid "user profile"
+msgstr "felhasználói profil"
+
+#: languagecards/apps.py:8
+msgid "language cards"
+msgstr "nyelvi kártyák"
+
+#: languagecards/models.py:12 languagecards/models.py:127
+#: languagecards/models.py:145 languagecards/models.py:164
+msgid "user"
+msgstr "felhasználó"
+
+#: languagecards/models.py:18
+msgid "role"
+msgstr "szerepkör"
+
+#: languagecards/models.py:19
+msgid "weight of vote"
+msgstr "a szavazat súlya"
+
+#: languagecards/models.py:20
+msgid "phone number"
+msgstr "telefonszám"
+
+#: languagecards/models.py:24
+msgid "user profiles"
+msgstr "felhasználói profilok"
+
+#: languagecards/models.py:36 languagecards/models.py:61
+#: languagecards/models.py:83
+msgid "name"
+msgstr "név"
+
+#: languagecards/models.py:37
+msgid "directory"
+msgstr "könyvtár"
+
+#: languagecards/models.py:38 languagecards/models.py:49
+msgid "file"
+msgstr "fájl"
+
+#: languagecards/models.py:39
+msgid "language"
+msgstr "nyelv"
+
+#: languagecards/models.py:39
+msgid "If Hungarian, can remain empty"
+msgstr "Magyar esetén üresen maradhat"
+
+#: languagecards/models.py:40 languagecards/models.py:63
+#: languagecards/models.py:85 languagecards/models.py:104
+#: languagecards/models.py:129 languagecards/models.py:146
+msgid "description"
+msgstr "leírás"
+
+#: languagecards/models.py:41
+msgid "file url"
+msgstr "a fájlhoz tartozó webes link"
+
+#: languagecards/models.py:42 languagecards/models.py:64
+#: languagecards/models.py:84 languagecards/models.py:105
+#: languagecards/models.py:148
+msgid "position"
+msgstr "pozíciószám"
+
+#: languagecards/models.py:43 languagecards/models.py:65
+#: languagecards/models.py:106 languagecards/models.py:124
+#: languagecards/models.py:143 languagecards/models.py:162
+msgid "created at"
+msgstr "létrehozva"
+
+#: languagecards/models.py:44 languagecards/models.py:66
+#: languagecards/models.py:107 languagecards/models.py:125
+#: languagecards/models.py:144 languagecards/models.py:163
+msgid "modified at"
+msgstr "módosítva"
+
+#: languagecards/models.py:45 languagecards/models.py:69
+#: languagecards/models.py:109
+msgid "is deprecated"
+msgstr "használaton kívül"
+
+#: languagecards/models.py:45
+msgid "Check this, when this file file is to be hidden."
+msgstr "Akkor jelöld be, ha ez a fájl elrejtendő."
+
+#: languagecards/models.py:50
+msgid "files"
+msgstr "fájlok"
+
+#: languagecards/models.py:62 languagecards/models.py:73
+msgid "grammar"
+msgstr "nyelvtan"
+
+#: languagecards/models.py:67
+msgid "is HTML"
+msgstr "ez HTML"
+
+#: languagecards/models.py:67
+msgid "Is this an HTML encoded text?"
+msgstr "Ez HTML kódolású szöveg?"
+
+#: languagecards/models.py:68
+msgid "only for web"
+msgstr "csak weboldalra, nem papírra"
+
+#: languagecards/models.py:68
+msgid "Check if this text is not for print page."
+msgstr ""
+"Akkor jelöld be, ha ez az énekszöveg nem nyomtatandó, hanem csak a "
+"weboldalon nézendő."
+
+#: languagecards/models.py:69
+msgid "Check this, when this text is to be hidden."
+msgstr "Akkor jelöld be, ha ez az énekszöveg elrejtendő."
+
+#: languagecards/models.py:74
+msgid "grammar pages"
+msgstr "nyelvtani szövegek"
+
+#: languagecards/models.py:89
+msgid "category"
+msgstr "kategória"
+
+#: languagecards/models.py:90 languagecards/models.py:103
+msgid "categories"
+msgstr "kategóriák"
+
+#: languagecards/models.py:99
+msgid "text1"
+msgstr "anyanyelvi szöveg"
+
+#: languagecards/models.py:100
+msgid "text2"
+msgstr "idegennyelvű szöveg"
+
+#: languagecards/models.py:101
+msgid "grammars"
+msgstr "nyelvtani bejegyzések"
+
+#: languagecards/models.py:102
+msgid "file tracks"
+msgstr "fájlok"
+
+#: languagecards/models.py:108
+msgid "is learned"
+msgstr "ismert"
+
+#: languagecards/models.py:108
+msgid "Check this, when you know this card."
+msgstr "Akkor jelöld be, ha ismered ennek a kártyának a jelentését."
+
+#: languagecards/models.py:109
+msgid "Check this, when this card is to be hidden."
+msgstr "Akkor jelöld be, ha ez az kártya elrejtendő."
+
+#: languagecards/models.py:113 languagecards/models.py:128
+msgid "card"
+msgstr "kártya"
+
+#: languagecards/models.py:115
+msgid "cards"
+msgstr "kártyák"
+
+#: languagecards/models.py:126
+msgid "score"
+msgstr "pont"
+
+#: languagecards/models.py:126
+msgid "-5 ... 5"
+msgstr "-5 ... 5"
+
+#: languagecards/models.py:133
+msgid "vote"
+msgstr "szavazat"
+
+#: languagecards/models.py:134
+msgid "votes"
+msgstr "szavazatok"
+
+#: languagecards/models.py:147
+msgid "idea url"
+msgstr "az ötlethez tartozó webes link"
+
+#: languagecards/models.py:152
+msgid "idea"
+msgstr "ötlet"
+
+#: languagecards/models.py:153
+msgid "ideas"
+msgstr "ötletek"
+
+#: languagecards/models.py:165
+msgid "content"
+msgstr "szövegtartalom"
+
+#: languagecards/models.py:171
+msgid "banner"
+msgstr "címszöveg"
+
+#: languagecards/models.py:172
+msgid "banners"
+msgstr "címszövegek"
+
+#~ msgid "sheet"
+#~ msgstr "kottaoldal"
+
+#~ msgid "sheet url"
+#~ msgstr "kotta url"
+
+#~ msgid "Check if this sheet is not for print page."
+#~ msgstr ""
+#~ "Akkor jelöld be, ha ez a kottaoldal nem nyomtatandó, hanem csak a "
+#~ "weboldalon nézendő."
+
+#~ msgid "Check this, when this sheet is to be hidden."
+#~ msgstr "Akkor jelöld be, ha ez a kottaoldal elrejtendő."
+
+#~ msgid "sheets"
+#~ msgstr "kottaoldalak"
+
+#~ msgid "sound"
+#~ msgstr "hanganyag"
+
+#~ msgid "sound url"
+#~ msgstr "hangfájl url"
+
+#~ msgid "sounds"
+#~ msgstr "hanganyagok"
+
+#~ msgid "lyrics"
+#~ msgstr "énekszöveg"
+
+#~ msgid "lyrics pages"
+#~ msgstr "énekszövegek"
+
+#~ msgid "season"
+#~ msgstr "évszak"
+
+#~ msgid "seasons"
+#~ msgstr "évszakok"
+
+#~ msgid "author"
+#~ msgstr "szerző"
+
+#~ msgid "title"
+#~ msgstr "cím"
+
+#~ msgid "subtitle"
+#~ msgstr "alcím"
+
+#~ msgid "instructions"
+#~ msgstr "előadási instrukciók"
+
+#~ msgid "starting notes"
+#~ msgstr "kezdőhangok"
+
+#~ msgid "number of planned hungarian verses"
+#~ msgstr "magyarul énekelt versszakok száma"
+
+#~ msgid "number of planned foreign language verses"
+#~ msgstr "idegen nyelven énekelt versszakok száma"
+
+#~ msgid "planned instruments"
+#~ msgstr "tervezett hangszerkíséret"
+
+#~ msgid "Check this, when this song is to be hidden."
+#~ msgstr "Akkor jelöld be, ha ez az ének elrejtendő."
+
+#~ msgid "song"
+#~ msgstr "ének"
+
+#~ msgid "songs"
+#~ msgstr "énekek"
+
+#~ msgid "Max: 5"
+#~ msgstr "Maximum: 5"
+
+#~ msgid "Is this a deprecated image?"
+#~ msgstr "Nem használandó kép?"
+
+#~ msgid "Is this a deprecated sound file?"
+#~ msgstr "Nem használandó hangfájl?"
+
+#~ msgid "Is this a deprecated text?"
+#~ msgstr "Nem használandó énekszöveg?"
+
+#~ msgid "Is this a deprecated Song?"
+#~ msgstr "Nem használandó ének?"
+
+#~ msgid "Is this a deprecated music sheet?"
+#~ msgstr "Használaton kívüli kotta?"
+
+#~ msgid "linked song"
+#~ msgstr "Ének"

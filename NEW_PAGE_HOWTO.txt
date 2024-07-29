@@ -1,0 +1,26 @@
+A languagecards-ba új oldalt szeretnénk felvenni, mondjuk legyen a címe "Szavazatok".
+vite.config.js és languagecards/urls.py igényli az új sort:
+        'languagecards/components/szavazatok.jsx',
+    path('szavazatok', VoteView.as_view()),   # Fönt is felveendő az importok közé: VoteView
+ez már át is vezet a
+ komponensek közé, ahol kell a szavazatok.jsx (pl. az otletek.jsx másolataként),
+valamint a
+ view-k közé, ahol is új view veendő fel:
+
+class VoteView(ReactMixin, TemplateView):
+    template_name = 'languagecards/react.html'
+    app_root = 'languagecards/components/szavazatok.jsx'
+
+    def get_props_data(self):
+        votes = Vote.objects.order_by('position', 'created_at')
+        serializer = VoteSerializer(votes, many=True)
+        return serializer.data
+
+Persze ehhez VoteSerializer is kell (meg ott fönt az importba Vote).
+
+Vélhetően kell új link a frontendre (languagecards.jsx-be): a key ne egyezzen meg korábbi másikkal!
+
+Arról most nincs szó, hogy az admin.py-ba kell-e új rész,
+vagy esetleg a models.py-ba (és akkor migrációs fájl is kell).
+
+A /static/css/languagecards.css-be kell tenni az esetleges css definíciókat.

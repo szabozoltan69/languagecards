@@ -1,0 +1,65 @@
+ .header {
+	 text-align: center;
+	 font-size: 1.5rem;
+	 margin-bottom: 1rem;
+}
+
+.songNr {
+	text-align: center;
+	font-size: 0.8rem;
+}
+
+.sheetUrl {
+	font-style: italic;
+	font-size: smaller;
+	float: right;
+}
+
+.soundUrl {
+	font-style: italic;
+	font-size: smaller;
+	float: right;
+}
+
+.otherUrl a, .adminUrl a, .noUnderline {
+	text-decoration: none;
+}
+
+.adminUrl, .otherUrl, .italics {
+	font-style: italic;
+}
+
+.localSound {
+	font-style: italic;
+	font-size: smaller;
+	float: right;
+	white-space: nowrap;
+}
+
+.noBreak {
+	white-space: nowrap;
+}
+
+.instructions {
+	font-size: smaller;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.d-flex.flex-column {
+  align-items: flex-end;
+}
+
+.verticalSpace {
+  padding: 5rem;
+}
+
+h1 {
+	margin-bottom: 0;
+}

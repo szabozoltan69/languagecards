@@ -1,0 +1,28 @@
+{
+  "name": "languagecards",
+  "version": "1.0.0",
+  "description": "use react.js in django templates for displaying language cards",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ChanMo",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
+    "vite": "^4.1.1"
+  },
+  "dependencies": {
+    "@togglecorp/toggle-form": "^2.0.3",
+    "@togglecorp/toggle-ui": "^0.17.0",
+    "axios": "^1.6.2",
+    "postcss-nested": "^6.0.1",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^9.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

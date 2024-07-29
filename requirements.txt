@@ -1,0 +1,13 @@
+Django==4.2.14
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-debug-toolbar==4.2.0
+#django-filter==23.5
+django-filter
+#django-admin-autocomplete-filter=="0.7.1"
+django-admin-autocomplete-filter
+django-requests-debug-toolbar==0.0.6
+django-vite-react==0.0.3
+pillow==10.2.0
+requests==2.31.0
+Markdown==3.5.1
