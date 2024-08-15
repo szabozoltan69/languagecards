@@ -9,6 +9,14 @@
 	font-size: 0.8rem;
 }
 
+.green {
+	color: green;
+}
+
+.small {
+	height: 4px;
+}
+
 .sheetUrl {
 	font-style: italic;
 	font-size: smaller;
@@ -57,7 +65,9 @@
 }
 
 .verticalSpace {
-  padding: 5rem;
+  padding: 3rem;
+  border: 1px solid;
+  margin-right: 3rem;
 }
 
 h1 {

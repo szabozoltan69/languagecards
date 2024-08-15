@@ -10,9 +10,8 @@ export default defineConfig({
     rollupOptions: {
       input: [
         'languagecards/components/languagecards.jsx',
-        'languagecards/components/languagecards2.jsx',
-        'languagecards/components/mind.jsx',
-// Also add in urls.py
+//      'languagecards/components/all.jsx',
+// Also add to urls.py
       ]
     }
   }

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import environ
 import os
 from pathlib import Path
 
@@ -24,10 +25,13 @@ SECRET_KEY = 'django-insecure-r+ngco2#3fkww(kr!0ctchj-gf=d(*23#zxqf$1(#701)1lkon
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# DEBUG = False
+
+env = environ.Env(
+    PROD_URL=(str, "no.such.url"),
+)
 
 ALLOWED_HOSTS = ['localhost', 'localhost:8000']
-
+print("We don't use now " + env("PROD_URL"))
 
 # Application definition
 
@@ -134,8 +138,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = '/var/www/html/static'
 
-STATICFILES_DIRS = (BASE_DIR / "static",)  # !
+STATICFILES_DIRS = (BASE_DIR / "static",)
 
+# Only locally used. On remote vm it is served by nginx:
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
@@ -178,4 +183,27 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
+}
+
+# CSRF_TRUSTED_ORIGINS = ['https://...',]
+# CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
+# CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "/tmp/django.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
 }

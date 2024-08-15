@@ -1,0 +1,26 @@
+server {
+    charset utf-8;
+
+    root /var/www/XXXXXXXXXXXXXXXX;
+
+    index index.php index.html;
+
+    server_name XXXXXXXXXXXXXXXX.hu www.XXXXXXXXXXXXXXXX.hu
+    client_max_body_size 100m;
+
+    access_log /var/log/nginx/XXXXXXXXXXXXXXXX.access.log;
+    error_log /var/log/nginx/XXXXXXXXXXXXXXXX.error.log;
+
+    sendfile off;
+    server_tokens off;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+    }
+
+}

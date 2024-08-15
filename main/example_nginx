@@ -1,0 +1,47 @@
+# Beside nxinx, start also: gunicorn -c main/gunicorn.conf.py main.wsgi:application
+# Replace XXXXXXXXXXX to your domain name midle tag
+server {
+	root /var/www/html;
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+        server_name XXXXXXXXXXXX.hu www.XXXXXXXXXXXX.hu; # managed by Certbot
+        client_max_body_size 100M;
+#        location = /favicon.ico { access_log off; log_not_found off; }
+        location /static3 {
+            root /var/www/html;
+            add_header 'Access-Control-Allow-Origin' '*';
+#            add_header 'Access-Control-Allow-Methods' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, HEAD, OPTIONS';
+        }
+        location / {
+          proxy_pass http://127.0.0.1:8003; # Proxy requests to Gunicorn # Not 8000 if there are more # Sync with gunicorn.conf.py
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        location /admin { # Access the admin page at /admin
+          proxy_pass http://127.0.0.1:8003/admin;
+        }
+        location /media {
+            alias /var/www/html/media_;  # Not "media" if there are more of them
+            # Optional: Add security-related directives
+            # ...
+        }  
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/XXXXXXXXXXXX.hu/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/XXXXXXXXXXXX.hu/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+server {
+    if ($host = www.XXXXXXXXXXXX.hu) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    if ($host = XXXXXXXXXXXX.hu) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+	listen 80 ;
+	listen [::]:80 ;
+    server_name XXXXXXXXXXXX.hu www.XXXXXXXXXXXX.hu;
+    return 404; # managed by Certbot
+}

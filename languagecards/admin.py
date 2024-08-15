@@ -1,3 +1,4 @@
+import logging
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -82,19 +83,60 @@ class GrammarAdmin(admin.ModelAdmin):
     ordering = ('position',)
 
 
-@admin.action(description="Kiválasztott Énekek láthatóságának invertálása")
+category_name_1 = models.Category.objects.get(id=1).name
+category_name_2 = models.Category.objects.get(id=2).name
+category_name_3 = models.Category.objects.get(id=3).name
+category_name_4 = models.Category.objects.get(id=4).name
+category_name_5 = models.Category.objects.get(id=5).name
+category_name_6 = models.Category.objects.get(id=6).name
+
+
+@admin.action(description="Kiválasztott Kártyák láthatóságának invertálása")
 def invert_status(modeladmin, request, queryset):
+    logging.info("Kártyák invertálva")  # has no effect
     queryset.update(is_deprecated=~F("is_deprecated"))
 
 
-@admin.action(description="Kiválasztott Énekek láthatóvá állítása")
+@admin.action(description="Kiválasztott Kártyák láthatóvá állítása")
 def status_ok(modeladmin, request, queryset):
+    logging.info("Kártyák láthatóak")  # has no effect
     queryset.update(is_deprecated=False)
 
 
-@admin.action(description="Kiválasztott Énekek nem láthatóvá állítása")
+@admin.action(description="Kiválasztott Kártyák nem láthatóvá állítása")
 def status_not_ok(modeladmin, request, queryset):
+    logging.info("Kártyák láthatatlanok")  # has no effect
     queryset.update(is_deprecated=True)
+
+
+@admin.action(description="1. kategóriába sorolás (" + category_name_1 + ")")
+def category_1(modeladmin, request, queryset):
+    queryset.update(category=1)
+
+
+@admin.action(description="2. kategóriába sorolás (" + category_name_2 + ")")
+def category_2(modeladmin, request, queryset):
+    queryset.update(category=2)
+
+
+@admin.action(description="3. kategóriába sorolás (" + category_name_3 + ")")
+def category_3(modeladmin, request, queryset):
+    queryset.update(category=3)
+
+
+@admin.action(description="4. kategóriába sorolás (" + category_name_4 + ")")
+def category_4(modeladmin, request, queryset):
+    queryset.update(category=4)
+
+
+@admin.action(description="5. kategóriába sorolás (" + category_name_5 + ")")
+def category_5(modeladmin, request, queryset):
+    queryset.update(category=5)
+
+
+@admin.action(description="6. kategóriába sorolás (" + category_name_6 + ")")
+def category_6(modeladmin, request, queryset):
+    queryset.update(category=6)
 
 
 class CardAdmin(admin.ModelAdmin):
@@ -104,11 +146,13 @@ class CardAdmin(admin.ModelAdmin):
         return not obj.is_deprecated
 
     is_active.boolean = True
-    list_display = ('text1', 'text2', 'is_active', 'description', 'position', 'modified_at')
-    search_fields = ('author', 'text1', 'text2', 'description')
+    list_display = ('text1', 'text2', 'is_active', 'is_learned', 'category', 'comment', 'user', 'position', 'modified_at')
+    list_filter = ('user', 'category', 'created_at')
+    search_fields = ('text1', 'text2', 'comment')
     autocomplete_fields = ('files', 'grammars')
     ordering = ('position', unaccent('text1'), unaccent('text2'))
-    actions = [invert_status, status_ok, status_not_ok]
+    actions = [invert_status, status_ok, status_not_ok, category_1, category_2,
+               category_3, category_4, category_5, category_6]
 
 
 class VoteAdmin(admin.ModelAdmin):

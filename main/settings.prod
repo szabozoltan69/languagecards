@@ -10,28 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import environ
 import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r+ngco2#3fkww(kr!0ctchj-gf=d(*23#zxqf$1(#701)1lkom'
+SECRET_KEY = 'django-insecure-r+ngco2#3fkww(kr!0ctchj-gf=d(*23#zxqf$1(#701)1lkon'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'aquincumecho.hu', 'www.aquincumecho.hu', '127.0.0.1', '34.88.114.173',
-    'localhost:5173', 'localhost:5173/@vite/client', 'localhost:5173/oktaeder/components/oktaeder.tsx', 'localhost:5173/@react-refresh',
+# Do not forget to source .env before using this (practically: before starting gunicorn)
+env = environ.Env(
+    PROD_URL=(str, "no.such.url"),
+)
+
+# /etc/hosts is usable as "127.0.0.1 localhost otherdomain otherdomain2" for "remote local" (in terminal: links) tests
+ALLOWED_HOSTS = ['localhost', 'localhost:8000', env("PROD_URL"), '127.0.0.1',
+    'localhost:5173', 'localhost:5173/@vite/client', 'localhost:5173/@react-refresh',
 ]
 
-# never use: CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -45,8 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'requests_panel',
-    'react',
     'languagecards',
+    'react',
 ]
 
 MIDDLEWARE = [
@@ -68,9 +72,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                    os.path.join(BASE_DIR, 'kocka/templates/'),
-                    os.path.join(BASE_DIR, 'oktaeder/templates/'),
-                    os.path.join(BASE_DIR, 'tetraeder/templates/'),
+#                    os.path.join(BASE_DIR, 'languagecards/templates/'),
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,10 +140,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 # https://learndjango.com/tutorials/django-favicon-tutorial
 
-STATIC_URL = 'static/'
-STATIC_ROOT = '/var/www/html/static'
+STATIC_URL = 'static3/'  # Could be in .env
+STATIC_ROOT = '/var/www/html/static3'
 
-STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "oktaeder/components/FormContainer"]  # !
+STATICFILES_DIRS = (BASE_DIR / "static3",)
 
 # Served by nginx, not needed here:
 # MEDIA_URL = 'media/'
@@ -188,6 +190,25 @@ REST_FRAMEWORK = {
     ]
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://aquincumecho.hu', 'https://www.aquincumecho.hu']
+CSRF_TRUSTED_ORIGINS = ['https://' + env("PROD_URL"),]
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "/tmp/django.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}

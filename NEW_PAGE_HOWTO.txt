@@ -1,9 +1,38 @@
+A new page is required to "languagecards" – let's call it "Votes".
+The vite.config.js and languagecards/urls.py needs a new row:
+        'languagecards/components/votes.jsx',
+    path('vote', VoteView.as_view()),   # Also into the imports above: VoteView
+This leads us to
+ components, where we need a votes.jsx (e.g let's copy languagecards.jsx),
+and into
+ views, where a new view is to be set up:
+
+class VoteView(ReactMixin, TemplateView):
+    template_name = 'languagecards/react.html'
+    app_root = 'languagecards/components/votes.jsx'
+
+    def get_props_data(self):
+        votes = Vote.objects.order_by('position', 'created_at')
+        serializer = VoteSerializer(votes, many=True)
+        return serializer.data
+
+We need a VoteSerializer of course (and above into the imports: Vote).
+
+Maybe a new link to frontend (to languagecards.jsx-be):
+  the key should not match to the previous ones!
+
+Maybe admin.py or even models.py can need some new rows (in this case also a migration is needed).
+
+/static/css/votes.css can have new CSS definitions
+
+===============
+
 A languagecards-ba új oldalt szeretnénk felvenni, mondjuk legyen a címe "Szavazatok".
 vite.config.js és languagecards/urls.py igényli az új sort:
         'languagecards/components/szavazatok.jsx',
     path('szavazatok', VoteView.as_view()),   # Fönt is felveendő az importok közé: VoteView
 ez már át is vezet a
- komponensek közé, ahol kell a szavazatok.jsx (pl. az otletek.jsx másolataként),
+ komponensek közé, ahol kell a szavazatok.jsx (pl. az languagecards.jsx másolataként),
 valamint a
  view-k közé, ahol is új view veendő fel:
 
@@ -23,4 +52,4 @@ Vélhetően kell új link a frontendre (languagecards.jsx-be): a key ne egyezzen
 Arról most nincs szó, hogy az admin.py-ba kell-e új rész,
 vagy esetleg a models.py-ba (és akkor migrációs fájl is kell).
 
-A /static/css/languagecards.css-be kell tenni az esetleges css definíciókat.
+A /static/css/languagecards.css-be kell tenni az esetleges CSS definíciókat.

@@ -26,7 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('languagecards.urls',)),
     path("__debug__/", include("debug_toolbar.urls")),
-    path('', include(router.urls)),
+    path("", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("favicon.ico", RedirectView.as_view(url=settings.STATIC_URL + "img/favicon.ico")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

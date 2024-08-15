@@ -36,7 +36,6 @@ class File(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=255)
     directory = models.CharField(verbose_name=_("directory"), max_length=255)
     file = models.FileField(verbose_name=_("file"), upload_to=file_path, blank=True, null=True)
-    language = models.CharField(verbose_name=_("language"), max_length=29, blank=True, null=True,  help_text=_("If Hungarian, can remain empty"))
     description = models.TextField(verbose_name=_("description"), blank=True, null=True)
     file_url = models.URLField(verbose_name=_("file url"), blank=True, null=True)
     position = models.IntegerField(verbose_name=_("position"), default=1)  # the bigger is downer
@@ -78,7 +77,7 @@ class Grammar(models.Model):
 
 
 class Category(models.Model):
-    """ The categories belonging to cards """
+    """ The categories belonging to cards (only one to each) """
 
     name = models.CharField(verbose_name=_("name"), max_length=255)
     position = models.IntegerField(verbose_name=_("position"), default=1)  # the bigger is downer
@@ -96,12 +95,14 @@ class Category(models.Model):
 class Card(models.Model):
     """ The cards themselves. 1 is the known language, 2 is the learned one. """
 
-    text1 = models.TextField(verbose_name=_("text1"), blank=True, null=True)
-    text2 = models.TextField(verbose_name=_("text2"), blank=True, null=True)
+    text1 = models.TextField(verbose_name=_("mother tongue"), blank=True, null=True)
+    text2 = models.TextField(verbose_name=_("foreign language"), blank=True, null=True)
+    pronunciation = models.TextField(verbose_name=_("pronunciation"), blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), related_name="user", blank=True, null=True, on_delete=models.SET_NULL)
     grammars = models.ManyToManyField(Grammar, verbose_name=_("grammars"), blank=True)
     files = models.ManyToManyField(File, verbose_name=_("file tracks"), blank=True)
-    categories = models.ManyToManyField(Category, verbose_name=_("categories"), blank=True)
-    description = models.TextField(verbose_name=_("description"), blank=True, null=True)
+    category = models.ForeignKey(Category, verbose_name=_("category"), related_name='cards', null=True, blank=True, on_delete=models.SET_NULL)
+    comment = models.TextField(verbose_name=_("comment"), blank=True, null=True)
     position = models.IntegerField(verbose_name=_("position"), default=1)  # the bigger is downer
     created_at = models.DateTimeField(verbose_name=_("created at"), auto_now_add=True)
     modified_at = models.DateTimeField(verbose_name=_("modified at"), auto_now=True)
@@ -113,6 +114,8 @@ class Card(models.Model):
         verbose_name = _("card")
 #       verbose_name_plural = _("cards")
         verbose_name_plural = " " + _("cards").title()  # https://stackoverflow.com/questions/398163/ordering-admin-modeladmin-objects-in-django-admin
+        unique_together = ('text1', 'user')
+        unique_together = ('text2', 'user')
 
     def __str__(self):
         return "%s" % self.text1
