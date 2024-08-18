@@ -154,6 +154,9 @@ class CardAdmin(admin.ModelAdmin):
     actions = [invert_status, status_ok, status_not_ok, category_1, category_2,
                category_3, category_4, category_5, category_6]
 
+    def get_changeform_initial_data(self, request):
+        return {'category': 2, 'user': 3}
+
 
 class VoteAdmin(admin.ModelAdmin):
     search_fields = ('score', 'card', 'user')

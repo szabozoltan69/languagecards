@@ -30,8 +30,7 @@ env = environ.Env(
     PROD_URL=(str, "no.such.url"),
 )
 
-ALLOWED_HOSTS = ['localhost', 'localhost:8000']
-print("We don't use now " + env("PROD_URL"))
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 

@@ -32,7 +32,7 @@ env = environ.Env(
 )
 
 # /etc/hosts is usable as "127.0.0.1 localhost otherdomain otherdomain2" for "remote local" (in terminal: links) tests
-ALLOWED_HOSTS = ['localhost', 'localhost:8000', env("PROD_URL"), '127.0.0.1',
+ALLOWED_HOSTS = ['localhost', env("PROD_URL"), "www." + env("PROD_URL"), '127.0.0.1',
     'localhost:5173', 'localhost:5173/@vite/client', 'localhost:5173/@react-refresh',
 ]
 
@@ -190,7 +190,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://' + env("PROD_URL"),]
+CSRF_TRUSTED_ORIGINS = ['https://' + env("PROD_URL"),  "https://www." + env("PROD_URL"),]
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
