@@ -103,8 +103,8 @@ class User2View(ReactMixin, TemplateView):  # TODO: not this duplicated way
             Prefetch('files', queryset=File.objects.filter(is_deprecated=False)),
             Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
             ).annotate(
-                id_mod=Mod('id', Value(2)),
-                day_mod=Mod(datetime.now().day, Value(2))
+                id_mod=Mod('id', Value(4)),
+                day_mod=Mod(datetime.now().day, Value(4))
             ).filter(user_id=2, id_mod=F('day_mod')
             ).order_by('position', '?')
         serializer = CardSerializer(cards, many=True)
