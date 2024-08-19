@@ -1,13 +1,15 @@
+from datetime import datetime
 from django.views.generic import TemplateView
 from react.mixins import ReactMixin
-from .models import Card, File, Grammar, Banner
 from django.contrib.auth.models import User
-from rest_framework import serializers
-from .strings import webpage_texts
+from django.http import HttpResponse
 from django.db.models import F, Prefetch, Value
 from django.db.models.functions import Mod
+from django.views.decorators.http import require_GET
+from rest_framework import serializers
+from .models import Card, File, Grammar, Banner
+from .strings import webpage_texts
 from .utils import unaccent
-from datetime import datetime
 
 
 class FileSerializer(serializers.ModelSerializer):
@@ -149,3 +151,14 @@ class User4View(ReactMixin, TemplateView):  # TODO: not this duplicated way
         serializer = CardSerializer(cards, many=True)
         webpage_texts[0]['ba'] = banner
         return webpage_texts + serializer.data
+
+
+@require_GET
+def robots_txt(request):
+    return HttpResponse(robots_txt_content, content_type="text/plain")
+
+
+robots_txt_content = """\
+User-agent: *
+Disallow: /
+"""
