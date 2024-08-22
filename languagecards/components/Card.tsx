@@ -40,7 +40,8 @@ function Card(props_) {
 
 // <div className="sheetUrl">{props.id}</div>
   return (
-    <div {...swipeHandler} onClick={handleClick} style={removed && hideMe || divStyle }>
+    removed && hideMe ? null :
+    <div {...swipeHandler} onClick={handleClick} style={divStyle as React.CSSProperties}>
         { mode === "foreign" ?
           <div className="verticalSpace">{props.text2} {isClicked && <div>– {props.text1}<br/><i>{props.pronunciation}</i>{!!props.grammars.length ? <><br/><i>{props.grammars[0].grammar}</i></> : ""}</div>}</div> :
           <div className="verticalSpace">{props.text1} {isClicked && <div>– {props.text2}<br/><i>{props.pronunciation}</i>{!!props.grammars.length ? <><br/><i>{props.grammars[0].grammar}</i></> : ""}</div>}</div> }
