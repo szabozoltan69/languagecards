@@ -30,7 +30,7 @@ function Card(props_) {
 
   const divStyle = {
     position: 'relative',
-    transition: 'left ' + parseFloat(T + 9) + 'ms ease-in-out',
+    transition: 'left ' + (T + 9).toString() + 'ms ease-in-out',
     left: `${position}px`,
   };
 

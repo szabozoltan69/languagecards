@@ -7,7 +7,7 @@ from django.db.models import F, Prefetch, Value
 from django.db.models.functions import Mod
 from django.views.decorators.http import require_GET
 from rest_framework import serializers
-from .models import Card, File, Grammar, Banner
+from .models import Card, File, Category, Grammar, Banner
 from .strings import webpage_texts
 from .utils import unaccent
 
@@ -151,6 +151,35 @@ class User4View(ReactMixin, TemplateView):  # TODO: not this duplicated way
         serializer = CardSerializer(cards, many=True)
         webpage_texts[0]['ba'] = banner
         return webpage_texts + serializer.data
+
+
+class CategoryView(ReactMixin, TemplateView):
+    template_name = 'languagecards/react.html'
+    app_root = 'languagecards/components/languagecards.jsx'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = self.kwargs.get('category')
+
+        if category:
+            try:
+                category_name = Category.objects.get(pk=category).name
+            except Category.DoesNotExist:
+                context['error_message'] = 'Category not found.'
+                category_name = ''
+
+        banner = Banner.objects.last().content if Banner.objects.count() else ''
+        cards = Card.objects.select_related('category', 'user').prefetch_related(
+            Prefetch('files', queryset=File.objects.filter(is_deprecated=False)),
+            Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
+            ).filter(category_id=category
+            ).order_by('position', '?')
+        serializer = CardSerializer(cards, many=True)
+        webpage_texts[0]['ba'] = banner
+        # webpage_texts[0]['cn'] = category_name # not great. Remains longer than needed
+        context['props'] = webpage_texts + serializer.data
+
+        return context
 
 
 @require_GET
