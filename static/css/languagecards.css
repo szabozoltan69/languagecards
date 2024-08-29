@@ -68,6 +68,15 @@
   padding: 3rem;
   border: 1px solid;
   margin-right: 3rem;
+  border-radius: 10px;
+  box-shadow: 5px 2px #888888;
+}
+
+.noHeight  {
+	font-size: smaller;
+	padding-left: 1rem;
+	color: darkgreen;
+	height: 0;
 }
 
 h1 {
