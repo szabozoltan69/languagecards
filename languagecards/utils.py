@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db.models import Value
 from django.db.models.functions import Replace, Lower
 
@@ -47,3 +48,7 @@ def unaccent(a):
         Value('ú'), Value('uzz1')),
         Value('ü'), Value('uzz2')),
         Value('ű'), Value('uzz3')))
+
+def niceday():
+    basetime = datetime(1969, 3, 8)  # can be any date in the past
+    return (datetime.now() - basetime).days

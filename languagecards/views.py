@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.views.generic import TemplateView
 from react.mixins import ReactMixin
 from django.contrib.auth.models import User
@@ -9,8 +8,7 @@ from django.views.decorators.http import require_GET
 from rest_framework import serializers
 from .models import Card, File, Category, Grammar, Banner
 from .strings import webpage_texts
-from .utils import unaccent
-
+from .utils import niceday, unaccent
 
 class FileSerializer(serializers.ModelSerializer):
 
@@ -104,7 +102,7 @@ class User2View(ReactMixin, TemplateView):  # TODO: not this duplicated way
             Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
             ).annotate(
                 id_mod=Mod('id', Value(4)),
-                day_mod=Mod(datetime.now().day, Value(4))
+                day_mod=Mod(niceday(), Value(4))
             ).filter(user_id=2, id_mod=F('day_mod')
             ).order_by('position', '?')
         serializer = CardSerializer(cards, many=True)
@@ -123,7 +121,7 @@ class User3View(ReactMixin, TemplateView):  # TODO: not this duplicated way
             Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
             ).annotate(
                 id_mod=Mod('id', Value(12)),
-                day_mod=Mod(datetime.now().day, Value(12))
+                day_mod=Mod(niceday(), Value(12))
             ).filter(user_id=3, id_mod=F('day_mod')
             ).order_by('position', '?')
         #    ).raw(
@@ -145,7 +143,7 @@ class User4View(ReactMixin, TemplateView):  # TODO: not this duplicated way
             Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
             ).annotate(
                 id_mod=Mod('id', Value(1)),  # increase this 1 to the required figure
-                day_mod=Mod(datetime.now().day, Value(1))
+                day_mod=Mod(niceday(), Value(1))
             ).filter(user_id=4, id_mod=F('day_mod')
             ).order_by('position', '?')
         serializer = CardSerializer(cards, many=True)

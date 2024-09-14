@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 from django.db.models import F
 from . import models
-from .utils import unaccent
+from .utils import niceday, unaccent
 
 
 class ProfileInline(admin.StackedInline):
@@ -201,7 +201,13 @@ class IdeaAdmin(admin.ModelAdmin):
 
 
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ('content', 'user')
+
+    @admin.display(description="Osztási nap 12-re")
+    def niceday(self, obj):
+        return niceday() % 12
+
+# niceday is mainly for debug purpose. Remove it later. Put basetime (or both) to a global var
+    list_display = ('user', 'content', 'niceday')
     ordering = ('id',)
     exclude = ('user',)
 
