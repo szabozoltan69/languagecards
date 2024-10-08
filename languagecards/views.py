@@ -120,12 +120,12 @@ class User3View(ReactMixin, TemplateView):  # TODO: not this duplicated way
             Prefetch('files', queryset=File.objects.filter(is_deprecated=False)),
             Prefetch('grammars', queryset=Grammar.objects.filter(is_deprecated=False)),
             ).annotate(
-                id_mod=Mod('id', Value(12)),
-                day_mod=Mod(niceday(), Value(12))
+                id_mod=Mod('id', Value(13)),
+                day_mod=Mod(niceday(), Value(13))
             ).filter(user_id=3, id_mod=F('day_mod')
             ).order_by('position', '?')
         #    ).raw(
-        #    "select id, id % 12 as x from languagecards_card where user_id = 3 and id % 12 = strftime('%d', date('now')) % 12 order by random()"
+        #    "select id, id % 13 as x from languagecards_card where user_id = 3 and id % 13 = strftime('%d', date('now')) % 13 order by random()"
         #    )
         serializer = CardSerializer(cards, many=True)
         webpage_texts[0]['ba'] = banner

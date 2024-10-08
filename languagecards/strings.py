@@ -12,6 +12,7 @@ webpage_texts = [{
     't6': 'Szóról szóra',
     'T6': '2',
     't7': 'Nyomtatásra',
+    'T7': 'Mégsem',
     't8': 'Szavazatok',
     'T8': 'szavazatok',
     't9': 'Szavazatok beírása/módosítása',

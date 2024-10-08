@@ -20,8 +20,10 @@ function Debug(props) {console.log('ddd', props);}
 function App(props) {
   text = props[0]; // could not solve via decomposition neither shift(), because props is read only
   const [isClicked, setIsClicked] = useState(false);
+  const [lastId, setLastId] = useState(0);
 
   const handleChange = (id, isRight) => {
+    setLastId(id);
     setCount(count - 1);
     if (count === 1) {
       setCount(learnings.filter((k) => k === false).length);  // summarize the to-learn cards
@@ -33,7 +35,8 @@ function App(props) {
 
   const [count, setCount] = useState(len);
   localStorage.setItem("learnings", JSON.stringify(learnings));
-  const handleClick = () => {setIsClicked(!isClicked)};
+  const handleClick = () => {setIsClicked(!isClicked);}
+  const handleUndo = () => {delete(learnings[lastId]); setCount(learnings.filter((k) => k === false).length); location.reload();}
   const rebaseMe = () => {localStorage.removeItem("learnings"); location.reload();}
 
   NewTitle()
@@ -44,6 +47,8 @@ function App(props) {
         <button onClick={rebaseMe}>{text.ta}</button>
         <span className="small">&nbsp;</span>
         <button onClick={handleClick} className="italics green">{text.ba}{text.t0}</button>
+        <span className="small">&nbsp;</span>
+        <button onClick={handleUndo} className="orange">{text.T7}</button>
       </div>
       <ul>
         {rows.map((k, idx) => (learnings[props[k].id] == false && <Card key={k} idx={idx} handleChange={handleChange} mode={isClicked && "foreign" || "motherTongue"} {...props[k]} />))}
