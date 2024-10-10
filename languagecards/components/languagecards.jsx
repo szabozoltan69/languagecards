@@ -45,10 +45,12 @@ function App(props) {
       <h2 id="§">{count ? count + " " + text.T0 : text.t2}</h2>
       <div className="d-flex flex-column">
         <button onClick={rebaseMe}>{text.ta}</button>
+        { count == 0 ? '' : <>
         <span className="small">&nbsp;</span>
         <button onClick={handleClick} className="italics green">{text.ba}{text.t0}</button>
         <span className="small">&nbsp;</span>
         <button onClick={handleUndo} className="orange">{text.T7}</button>
+        </>}
       </div>
       <ul>
         {rows.map((k, idx) => (learnings[props[k].id] == false && <Card key={k} idx={idx} handleChange={handleChange} mode={isClicked && "foreign" || "motherTongue"} {...props[k]} />))}
