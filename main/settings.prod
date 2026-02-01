@@ -28,11 +28,12 @@ DEBUG = False
 
 # Do not forget to source .env before using this (practically: before starting gunicorn)
 env = environ.Env(
+    PROD_IP=(str, "no.such.ip.addr"),
     PROD_URL=(str, "no.such.url"),
 )
 
 # /etc/hosts is usable as "127.0.0.1 localhost otherdomain otherdomain2" for "remote local" (in terminal: links) tests
-ALLOWED_HOSTS = ['localhost', env("PROD_URL"), "www." + env("PROD_URL"), '127.0.0.1',
+ALLOWED_HOSTS = ['localhost', env("PROD_URL"), "www." + env("PROD_URL"), env("PROD_IP"), '127.0.0.1',
     'localhost:5173', 'localhost:5173/@vite/client', 'localhost:5173/@react-refresh',
 ]
 
