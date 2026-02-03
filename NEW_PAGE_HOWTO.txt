@@ -45,7 +45,7 @@ class VoteView(ReactMixin, TemplateView):
         serializer = VoteSerializer(votes, many=True)
         return serializer.data
 
-Persze ehhez VoteSerializer is kell (meg ott fönt az importba Vote).
+Persze ehhez VoteSerializer is kell (meg ott fönt az urls-be importba Vote).
 
 Vélhetően kell új link a frontendre (languagecards.jsx-be): a key ne egyezzen meg korábbi másikkal!
 

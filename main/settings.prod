@@ -28,14 +28,17 @@ DEBUG = False
 
 # Do not forget to source .env before using this (practically: before starting gunicorn)
 env = environ.Env(
-    PROD_URL=(str, "no.such.url"),
+    PROD_IP=(str, None),
+    PROD_URL=(str, None),
+    STATIC=(str, "static8"),
 )
 
 # /etc/hosts is usable as "127.0.0.1 localhost otherdomain otherdomain2" for "remote local" (in terminal: links) tests
-ALLOWED_HOSTS = ['localhost', env("PROD_URL"), "www." + env("PROD_URL"), '127.0.0.1',
+ALLOWED_HOSTS = ['localhost', env("PROD_URL"), "www." + env("PROD_URL"), env("PROD_IP"), '127.0.0.1',
     'localhost:5173', 'localhost:5173/@vite/client', 'localhost:5173/@react-refresh',
 ]
 
+# never use: CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -139,11 +142,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 # https://learndjango.com/tutorials/django-favicon-tutorial
-
-STATIC_URL = 'static3/'  # Could be in .env
-STATIC_ROOT = '/var/www/html/static3'
-
-STATICFILES_DIRS = (BASE_DIR / "static3",)
+s = env("STATIC", default="")
+STATIC_URL = f"{s}/"
+STATIC_ROOT = f"/var/www/html/{s}"
+STATICFILES_DIRS = (BASE_DIR / s,)
 
 # Served by nginx, not needed here:
 # MEDIA_URL = 'media/'
@@ -194,6 +196,9 @@ CSRF_TRUSTED_ORIGINS = ['https://' + env("PROD_URL"),  "https://www." + env("PRO
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
+# s was defined above via env("STATIC"...)
+suffix = s[-1] if s and not s.endswith("c") else ""
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -201,7 +206,7 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": "/tmp/django.log",
+            "filename": f"/tmp/django{suffix}.log",
         },
     },
     "loggers": {
