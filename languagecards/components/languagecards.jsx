@@ -36,6 +36,12 @@ function App(props) {
   const [count, setCount] = useState(len);
   localStorage.setItem("learnings", JSON.stringify(learnings));
   const handleClick = () => {setIsClicked(!isClicked);}
+  const handleEdit = (id) => {
+    if (!id) {
+      return;
+    }
+    window.location.href = `/admin/languagecards/card/${id}/change/`;
+  }
   const handleUndo = () => {delete(learnings[lastId]); setCount(learnings.filter((k) => k === false).length); location.reload();}
   const rebaseMe = () => {localStorage.removeItem("learnings"); location.reload();}
 
@@ -49,11 +55,11 @@ function App(props) {
         <span className="small">&nbsp;</span>
         <button onClick={handleClick} className="italics green">{text.ba}{text.t0}</button>
         <span className="small">&nbsp;</span>
-        <button onClick={handleUndo} className="orange">{text.T7}</button>
+        <button onClick={handleUndo} className="orange">{text.T8}</button>
         </>}
       </div>
       <ul>
-        {rows.map((k, idx) => (learnings[props[k].id] == false && <Card key={k} idx={idx} handleChange={handleChange} mode={isClicked && "foreign" || "motherTongue"} {...props[k]} />))}
+        {rows.map((k, idx) => (learnings[props[k].id] == false && <Card key={k} idx={idx} handleChange={handleChange} handleEdit={handleEdit} mode={isClicked && "foreign" || "motherTongue"} {...props[k]} />))}
       </ul>
       <div className="d-flex flex-column">
         <p className="otherUrl">

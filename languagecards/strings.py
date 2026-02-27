@@ -13,7 +13,7 @@ webpage_texts = [{
     'T6': '2',
     't7': 'Nyomtatásra',
     'T7': 'Mégsem',
-    't8': 'Szavazatok',
+    't8': 'HASZNÁLHATOD BÁRMIRE',
     'T8': 'szavazatok',
     't9': 'Szavazatok beírása/módosítása',
     'T9': 'admin/languagecards/vote',

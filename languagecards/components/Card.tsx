@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useSwipe from '../components/useSwipe';
 
 function Card(props_) {
-  const { handleChange, mode, ...props } = props_;
+  const { handleChange, handleEdit, mode, ...props } = props_;
 
   const [position, setPosition] = useState(0);
   const [removed, setRemoved] = useState(false);
@@ -44,7 +44,7 @@ function Card(props_) {
     removed && hideMe ? null :
     <>
     {isKlicked && <div className="noHeight">{ mode === "foreign" ? props.text1 : props.text2}</div>}
-    <div {...swipeHandler} onClick={handleClick} style={divStyle as React.CSSProperties}>
+    <div {...swipeHandler} onClick={handleClick} onDoubleClick={() => handleEdit(props.id)} style={divStyle as React.CSSProperties}>
         { mode === "foreign" ?
           <div className="verticalSpace">{props.text2} {isClicked && <div>– {props.text1}<br/><i>{props.pronunciation}</i>{!!props.grammars.length ? <><br/><i>{props.grammars[0].grammar}</i></> : ""}</div>}</div> :
           <div className="verticalSpace">{props.text1} {isClicked && <div>– {props.text2}<br/><i>{props.pronunciation}</i>{!!props.grammars.length ? <><br/><i>{props.grammars[0].grammar}</i></> : ""}</div>}</div> }
