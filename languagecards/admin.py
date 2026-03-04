@@ -164,6 +164,21 @@ class CardAdmin(admin.ModelAdmin):
     actions = [invert_status, status_ok, status_not_ok, category_1, category_2,
                category_3, category_4, category_5, category_6]
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if obj:
+            first_grammar = obj.grammars.first()
+            if first_grammar and 'grammars' in form.base_fields:
+                label = form.base_fields['grammars'].label
+                url = reverse("admin:languagecards_grammar_change", args=(first_grammar.pk,))
+                form.base_fields['grammars'].label = format_html('<a href="{}">{}</a>', url, label)
+            first_file = obj.files.first()
+            if first_file and 'files' in form.base_fields:
+                label = form.base_fields['files'].label
+                url = reverse("admin:languagecards_file_change", args=(first_file.pk,))
+                form.base_fields['files'].label = format_html('<a href="{}">{}</a>', url, label)
+        return form
+
     def get_changeform_initial_data(self, request):
         return {'category': 2, 'user': 3}
 
