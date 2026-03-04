@@ -1,4 +1,6 @@
 import logging
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -48,9 +50,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class FileAdmin(admin.ModelAdmin):
 
-    @admin.display(description="ének")
+    @admin.display(description="kártya")
     def linked_card(self, obj):
-        return obj.card_set.first() or '-'
+        card = obj.card_set.first()
+        if not card:
+            return '-'
+        url = reverse("admin:languagecards_card_change", args=(card.pk,))
+        return format_html('<a href="{}">{}</a>', url, card)
 
     @admin.display(description="ok")
     def is_active(self, obj):
@@ -63,9 +69,13 @@ class FileAdmin(admin.ModelAdmin):
 
 
 class GrammarAdmin(admin.ModelAdmin):
-    @admin.display(description="ének")
+    @admin.display(description="kártya")
     def linked_card(self, obj):
-        return obj.card_set.first() or '-'
+        card = obj.card_set.first()
+        if not card:
+            return '-'
+        url = reverse("admin:languagecards_card_change", args=(card.pk,))
+        return format_html('<a href="{}">{}</a>', url, card)
 
     @admin.display(description="ok")
     def is_active(self, obj):
