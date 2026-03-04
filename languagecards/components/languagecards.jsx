@@ -40,7 +40,7 @@ function App(props) {
     if (!id) {
       return;
     }
-    window.location.href = `/admin/languagecards/card/${id}/change/`;
+    window.open(`/admin/languagecards/card/${id}/change/`, "_blank", "noopener");
   }
   const handleUndo = () => {delete(learnings[lastId]); setCount(learnings.filter((k) => k === false).length); location.reload();}
   const rebaseMe = () => {localStorage.removeItem("learnings"); location.reload();}
