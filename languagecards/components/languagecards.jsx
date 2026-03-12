@@ -55,7 +55,7 @@ function App(props) {
         <span className="small">&nbsp;</span>
         <button onClick={handleClick} className="italics green">{text.ba}{text.t0}</button>
         <span className="small">&nbsp;</span>
-        <button onClick={handleUndo} className="orange">{text.T8}</button>
+        <button onClick={handleUndo} className="orange">{text.T7}</button>
         </>}
       </div>
       <ul>
