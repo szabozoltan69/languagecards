@@ -30,7 +30,6 @@ DEBUG = False
 env = environ.Env(
     PROD_IP=(str, None),
     PROD_URL=(str, None),
-    STATIC=(str, "static8"),
 )
 
 # /etc/hosts is usable as "127.0.0.1 localhost otherdomain otherdomain2" for "remote local" (in terminal: links) tests
@@ -142,10 +141,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 # https://learndjango.com/tutorials/django-favicon-tutorial
-s = env("STATIC", default="")
-STATIC_URL = f"{s}/"
-STATIC_ROOT = f"/var/www/html/{s}"
-STATICFILES_DIRS = (BASE_DIR / s,)
+s = "staticfiles"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / s
+STATICFILES_DIRS = [ BASE_DIR / "static", ]
 
 # Served by nginx, not needed here:
 # MEDIA_URL = 'media/'
@@ -197,7 +196,7 @@ CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
 # s was defined above via env("STATIC"...)
-suffix = s[-1] if s and not s.endswith("c") else ""
+suffix = env("PROD_URL").replace(".", "-")
 
 LOGGING = {
     "version": 1,
@@ -206,7 +205,7 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": f"/tmp/django{suffix}.log",
+            "filename": f"/tmp/django-{suffix}.log",
         },
     },
     "loggers": {
