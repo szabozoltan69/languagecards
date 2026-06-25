@@ -146,7 +146,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / s
 STATICFILES_DIRS = [ BASE_DIR / "static", ]
 
-# Served by nginx, not needed here:
+# Served by nginx, not needed here (even more: erroneous, if you give).
 # MEDIA_URL = 'media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
