@@ -1,4 +1,5 @@
 import logging
+from django import forms
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -149,6 +150,24 @@ def category_6(modeladmin, request, queryset):
     queryset.update(category=6)
 
 
+class CardAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Card
+        fields = '__all__'
+
+    def clean_text1(self):
+        text1 = self.cleaned_data.get('text1', '')
+        if not text1 or not text1.strip():
+            raise forms.ValidationError(_("This field cannot be empty."))
+        return text1
+
+    def clean_text2(self):
+        text2 = self.cleaned_data.get('text2', '')
+        if not text2 or not text2.strip():
+            raise forms.ValidationError(_("This field cannot be empty."))
+        return text2
+
+
 class CardAdmin(admin.ModelAdmin):
 
     @admin.display(description="ok")
@@ -156,6 +175,7 @@ class CardAdmin(admin.ModelAdmin):
         return not obj.is_deprecated
 
     is_active.boolean = True
+    form = CardAdminForm
     list_display = ('text1', 'text2', 'is_active', 'is_learned', 'category', 'comment', 'user', 'position', 'modified_at')
     list_filter = ('user', 'category', 'created_at')
     search_fields = ('text1', 'text2', 'comment')
